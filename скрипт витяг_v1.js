@@ -20,11 +20,11 @@ function setPropertyDisabled(attributeName, boolValue = true) {
 }
 
 //Скрипт 1. Зміна властивостей атрибутів полів карточки
-function onTaskPickUpDetermineResponsible() {
+function onTaskPickUpedDetermineResponsible() {
   setPropOnDetermineResponsibleTaskOrInformHeadTask();
 }
 
-function onTaskPickUpInformHead() {
+function onTaskPickUpedInformHead() {
   setPropOnDetermineResponsibleTaskOrInformHeadTask();
 }
 
@@ -67,20 +67,8 @@ function setPropOnDetermineResponsibleTaskOrInformHeadTask() {
     setPropertyHidden("InformEmloyee", false);
     setPropertyDisabled("InformEmloyee", false);
   } else if (
-    //етап DetermineResponsible виконано, поточний користувач = виконавець завдання DetermineResponsible
-    CaseTaskDetermineResponsible.state == "completed" &&
-    CurrentUser.employeeId == CaseTaskDetermineResponsible.executorId
-  ) {
-    setPropertyRequired("ResponsibleEmployee");
-    setPropertyHidden("ResponsibleEmployee", false);
-    setPropertyDisabled("ResponsibleEmployee");
-    setPropertyRequired("InformEmloyee", false);
-    setPropertyHidden("InformEmloyee", false);
-    setPropertyDisabled("InformEmloyee");
-  } else if (
-    //етап InformHead виконано, поточний користувач = виконавець завдання InformHead
-    CaseTaskInformHead.state == "completed" &&
-    CurrentUser.employeeId == CaseTaskInformHead.executorId
+    CaseTaskDetermineResponsible.state == "completed" ||
+    CaseTaskInformHead.state == "completed"
   ) {
     setPropertyRequired("ResponsibleEmployee");
     setPropertyHidden("ResponsibleEmployee", false);
